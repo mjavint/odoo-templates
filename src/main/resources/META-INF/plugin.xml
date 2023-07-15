@@ -1,0 +1,83 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>org.mjavint.plugins.odoo-templates</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>Odoo templates</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="mjavint@gmail.com" url="https://github.com/mjavint">mjavint</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description>
+        <![CDATA[
+        <p>This plugin is based on the Firebits odoo plugin</p>
+        <p>v1.0.20220904
+       <ul>
+        <li>Updated to version 2023.* of PyCharm</li>
+       </ul>
+      </p>
+      <p>v1.0.20220904
+       <ul>
+        <li>Code completion for Odoo in Python files </li>
+        <li>Code completion in models (directives, fields, methods and classes)</li>
+        <li>Code completion in form, list, and kanban views, as well as in actions and menus </li>
+        <li>All generated codes are based on odoo version 15</li>
+        <li>Generation of xml, csv files, models and odoo controllers</li>
+       </ul>
+      </p>
+    ]]>
+    </description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.python</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <defaultLiveTemplates file="/liveTemplates/odoo.xml"/>
+        <liveTemplateContext implementation="org.mjavint.plugins.odootemplates.templates.OdooPythonContext"
+                             contextId="OdooPython"/>
+        <liveTemplateContext implementation="org.mjavint.plugins.odootemplates.templates.OdooXmlContext" contextId="OdooXml"/>
+
+        <internalFileTemplate name="OdooManifest"/>
+        <internalFileTemplate name="OdooInit"/>
+        <internalFileTemplate name="OdooModel"/>
+        <internalFileTemplate name="OdooController"/>
+        <internalFileTemplate name="OdooAccess"/>
+        <internalFileTemplate name="OdooViewEmpty"/>
+        <internalFileTemplate name="OdooViewBasic"/>
+        <internalFileTemplate name="OdooViewAdvanced"/>
+        <internalFileTemplate name="OdooViewInherit"/>
+        <internalFileTemplate name="OdooViewReport"/>
+        <internalFileTemplate name="OdooViewSecurity"/>
+        <internalFileTemplate name="OdooViewSequence"/>
+        <internalFileTemplate name="OdooViewSettings"/>
+        <internalFileTemplate name="OdooViewCronJob"/>
+    </extensions>
+
+    <actions>
+        <group id="org.intellij.sdk.action.GroupedActions" text="Odoo File" popup="true"
+               icon="org.mjavint.plugins.odootemplates.OdooIcons.OdooIcon">
+            <add-to-group group-id="NewGroup" anchor="first"/>
+            <action id="odoo_access" icon="org.mjavint.plugins.odootemplates.OdooIcons.CsvIcon"
+                    class="org.mjavint.plugins.odootemplates.actions.CreateOdooAccessAction" text="New Security Access">
+                <keyboard-shortcut first-keystroke="control alt Z" keymap="$default"/>
+            </action>
+            <action id="odoo_model" icon="org.mjavint.plugins.odootemplates.OdooIcons.PythonIcon"
+                    class="org.mjavint.plugins.odootemplates.actions.CreateOdooModelAction" text="New Model">
+                <keyboard-shortcut first-keystroke="control alt A" keymap="$default"/>
+            </action>
+            <action id="odoo_view" icon="org.mjavint.plugins.odootemplates.OdooIcons.XmlIcon"
+                    class="org.mjavint.plugins.odootemplates.actions.CreateOdooViewAction" text="New View">
+                <keyboard-shortcut first-keystroke="control alt Q" keymap="$default"/>
+            </action>
+        </group>
+    </actions>
+</idea-plugin>
